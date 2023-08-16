@@ -1,6 +1,7 @@
 @import url("palette.pcss");
 @import url("fonts.pcss");
 @import url("hero.pcss");
+@import url("offers.pcss");
 
 *,
 *::before,
@@ -60,21 +61,6 @@ button,
 textarea,
 select {
     font: inherit;
-}
-
-.header__title {
-    font-family: 'Proxima Nova Bl', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: calc(36px + 20 * (100vw / 1920));
-    line-height: calc(52px + 12 * (100vw / 1920));
-}
-
-@media (width <= 767px) {
-    .header__title {
-        font-size: calc(36px + (20 + 20 * 0.7) * ((100vw - 320px) / 1920));
-        line-height: calc(52px + (12 + 12 * 0.7) * ((100vw - 320px) / 1920));
-    }
 }
 
 .container {
