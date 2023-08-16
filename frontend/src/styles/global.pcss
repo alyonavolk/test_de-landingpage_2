@@ -2,6 +2,8 @@
 @import url("fonts.pcss");
 @import url("hero.pcss");
 @import url("offers.pcss");
+@import url("client.pcss");
+@import url("team.pcss");
 
 *,
 *::before,
@@ -43,6 +45,10 @@ ol[class] {
     list-style: none;
 }
 
+a[class] {
+    text-decoration: none;
+}
+
 a:not([class]) {
     text-decoration-skip-ink: auto;
 }
@@ -71,7 +77,6 @@ select {
 }
 
 .container__title {
-    color: var(--colorAzure);
     font-size: 36px;
     font-style: normal;
     font-weight: 600;
@@ -79,9 +84,16 @@ select {
     letter-spacing: 1.8px;
 }
 
+.container__descr {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
 .btn {
     background-color: var(--colorDanube);
     width: 100%;
+    padding: 15px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
@@ -90,4 +102,24 @@ select {
 
 .btn:hover {
     opacity: 0.8;
+}
+
+.background__danube {
+    background: var(--colorDanube);
+    color: var(--colorWhite);
+    border-radius: 200px 0px 0px;
+}
+
+.background__azure {
+    background: var(--colorAzure);
+    margin-right: 7.5vw;
+    border-radius: 0px 200px 0px 0px;
+}
+
+.container__line {
+    stroke-width: 1px;
+    stroke: var(--colorWhite);
+    width: 80vw;
+    opacity: 0.4;
+    margin-left: 0;
 }
