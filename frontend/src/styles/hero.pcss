@@ -16,6 +16,8 @@
 }
 
 .hero__navigation {
+    max-width: 1300px;
+    margin: auto;
     padding: 40px 0 20px;
     display: flex;
     justify-content: space-between;
@@ -28,6 +30,41 @@
 
 .hero__navigation--logo:hover {
     opacity: 0.8;
+}
+
+.hero__menu {
+    display: block;
+    position: relative;
+    width: 24px;
+    height: 16px;
+    z-index: 3;
+}
+
+.hero__menu span {
+    position: absolute;
+    background-color: var(--colorAstral);
+    width: 100%;
+    height: 2px;
+    top: 7px;
+    transition: all 0.3s ease 0s;
+}
+
+.hero__menu::before, .hero__menu::after {
+    content: '';
+    background-color: var(--colorAstral);
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0px;
+    transition: all 0.3s ease 0s;
+}
+
+.hero__menu::before {
+    top: 0;
+}
+
+.hero__menu::after {
+    bottom: 0;
 }
 
 .hero__container {
