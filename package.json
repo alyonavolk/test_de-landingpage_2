@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://alyonavolk.github.io/test_de-landingpage_2/",
   "scripts": {
     "dev": "webpack serve --open --mode development -c frontend/webpack.config.js",
     "build": "webpack -c frontend/webpack.config.js --mode production",
-    "build:dev": "webpack -c frontend/webpack.config.js --mode development"
+    "build:dev": "webpack -c frontend/webpack.config.js --mode development",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d frontend/build"
   },
   "author": "Alyona Volkova",
   "license": "ISC",
@@ -25,6 +28,7 @@
     "eslint-webpack-plugin": "^4.0.1",
     "file-loader": "^6.2.0",
     "filemanager-webpack-plugin": "^8.0.0",
+    "gh-pages": "^6.0.0",
     "html-webpack-plugin": "^5.5.1",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.4.24",
