@@ -1,3 +1,8 @@
 import './styles/global.pcss'
+import Form from './js/form'
+import Modal from './js/modal.js'
 
-console.log('Hello')
+const form = new Form()
+const modal = new Modal()
+
+window.modal = modal

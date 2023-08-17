@@ -38,6 +38,8 @@
     width: 24px;
     height: 16px;
     z-index: 3;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
 }
 
 .hero__menu span {
@@ -46,7 +48,6 @@
     width: 100%;
     height: 2px;
     top: 7px;
-    transition: all 0.3s ease 0s;
 }
 
 .hero__menu::before, .hero__menu::after {
@@ -56,7 +57,10 @@
     width: 100%;
     height: 2px;
     left: 0px;
-    transition: all 0.3s ease 0s;
+}
+
+.hero__menu:hover {
+    opacity: 0.5;
 }
 
 .hero__menu::before {
