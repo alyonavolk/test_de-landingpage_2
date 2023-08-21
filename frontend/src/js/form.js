@@ -1,19 +1,21 @@
-export default class Form {
+import Modal from './modal'
+
+export class Form {
 	static selectors = {
-		form: '[data-js-form]',
 		input: '[data-js-input]'
 	}
 
-	static url = 'https://unsplash.com/photos/pdALzg0yN-8'
-
-	constructor () {
-		this.instance = document.querySelector(Form.selectors.form)
+	constructor (element) {
+		this.instance = element
 
 		this.inputs = Array.from(
 			this.instance.querySelectorAll(Form.selectors.input)
 		)
 
+		this.url = this.instance.getAttribute('action')
+
 		if (this.instance) {
+			this.modal = new Modal('[data-js-modal=modal2]')
 			this.bindEvents()
 		}
 	}
@@ -85,17 +87,16 @@ export default class Form {
 		const btn = this.instance.querySelector('input[type="submit"]')
 		if (isValid) {
 			btn.disabled = true
-			Form.send(Form.url, this.instance)
+			Form.send(this.url, this.instance)
 				.then(() => {
-					const currentModal = document.querySelector('[data-js-modal="modal2"]')
-					window.modal.modalOpen(currentModal)
+					this.modal.modalOpen()
 					btn.disabled = false
 				})
 				.catch(() => {
 					const currentModal = document.querySelector('[data-js-modal="modal2"]')
 					const changeText = currentModal.querySelector('.message__descr')
 					changeText.innerText = 'An error has occurred'
-					window.modal.modalOpen(currentModal)
+					this.modal.modalOpen()
 					btn.disabled = false
 				})
 		}
@@ -103,5 +104,20 @@ export default class Form {
 
 	bindEvents () {
 		this.instance.addEventListener('submit', (e) => this.#onSubmit(e))
+	}
+}
+
+export default class FormManager {
+	static selector = '[data-js-form]'
+
+	constructor () {
+		this.form = document.querySelectorAll(FormManager.selector)
+		if (this.form.length) {
+			this.init()
+		}
+	}
+
+	init () {
+		this.form.forEach(node => new Form(node))
 	}
 }

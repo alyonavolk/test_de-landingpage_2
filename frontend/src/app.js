@@ -1,8 +1,8 @@
 import './styles/global.pcss'
-import Form from './js/form'
+import FormManager from './js/form'
 import Modal from './js/modal.js'
 
-const form = new Form()
-const modal = new Modal()
-
-window.modal = modal
+document.addEventListener('DOMContentLoaded', () => {
+	const form = new FormManager()
+	const modal = new Modal('[data-js-modal=modal1]')
+})

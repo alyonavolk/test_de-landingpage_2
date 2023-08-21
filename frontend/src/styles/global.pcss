@@ -48,7 +48,7 @@ ol[class] {
     list-style: none;
 }
 
-a[class] {
+a, a[class] {
     text-decoration: none;
 }
 
@@ -101,19 +101,22 @@ select {
     line-height: calc(40px + 12 * (100vw / 1920));
 }
 
-.btn {
+.btn, .link {
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     background-color: var(--colorDanube);
-    width: 100%;
-    padding: 15px;
     border-radius: 10px;
-    border: none;
-    cursor: pointer;
     transition: opacity 0.3s linear;
 }
 
+.btn {
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s linear;
+    width: 100%;
+    padding: 15px;
+}
 
 @media (width <= 767px) {
     .container__title {
@@ -125,22 +128,22 @@ select {
         font-size: 14px;
     }
 
-    .btn {
+    .btn, .link {
         font-size: 14px;
     }
 }
 
-.btn:hover {
+.btn:hover, .link:hover {
     opacity: 0.8;
 }
 
-.background__danube {
+.wrapper__color--danube {
     background: var(--colorDanube);
     color: var(--colorWhite);
     border-radius: 200px 0px 0px;
 }
 
-.background__azure {
+.wrapper__color--azure {
     background: var(--colorAzure);
     margin-right: 7.5vw;
     border-radius: 0px 200px 0px 0px;
@@ -152,4 +155,8 @@ select {
     width: 80vw;
     opacity: 0.4;
     margin-left: 0;
+}
+
+.sprites {
+    fill: black;
 }

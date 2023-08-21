@@ -1,104 +1,82 @@
+import { BodyLock } from './utils/bodyLock'
+import { BodyUnLock } from './utils/bodyUnLock'
+
 export default class Modal {
 	static selectors = {
-		modal: '[data-js-modal]',
 		openButton: '[data-js-open]',
 		closeButton: '[data-js-close]'
 	}
 
-	static body = document.querySelector('body')
-
-	constructor () {
-		this.modal = Array.from(
-			document.querySelectorAll(Modal.selectors.modal)
-		)
-		this.openButton = Array.from(
-			document.querySelectorAll(Modal.selectors.openButton)
-		)
-		this.closeButton = Array.from(
-			document.querySelectorAll(Modal.selectors.closeButton)
-		)
+	constructor (modal = '[data-js-modal=modal1]') {
+		this.modal = document.querySelector(modal)
+		this.openButton = document.querySelectorAll(Modal.selectors.openButton)
+		this.closeButton = document.querySelectorAll(Modal.selectors.closeButton)
 		this.unlock = true
 		this.timeout = 300
 
 		if (this.modal && this.openButton) {
-			this.clickOpen()
-			this.clickClose()
+			this.clickOpenBtn()
+			this.clickCloseBtn()
 		}
 	}
 
-	clickOpen () {
+	clickOpenBtn () {
 		this.openButton.forEach(btn => {
-			btn.addEventListener('click', (e) => {
-				e.preventDefault()
-				const modalName = btn.getAttribute('data-js-open')
-				this.modal.forEach(modal => {
-					const modalAttr = modal.getAttribute('data-js-modal')
-					if (modalAttr === modalName) {
-						const currentModal = modal
-						this.modalOpen(currentModal)
-					}
-				})
-			})
+			this.#clickOpen(btn)
 		})
 	}
 
-	clickClose () {
+	clickCloseBtn () {
 		this.closeButton.forEach(btn => {
-			btn.addEventListener('click', (e) => {
-				e.preventDefault()
-				this.modalClose(btn.closest('.modal'))
-			})
+			this.#clickClose(btn)
 		})
 	}
 
-	modalOpen (modal) {
-		if (modal && this.unlock) {
-			const modalActive = document.querySelector('.modal__open')
+	modalOpen () {
+		if (this.unlock) {
+			const modalActive = document.querySelector('.open')
 			if (modalActive) {
 				this.modalClose(modalActive, false)
 			} else {
-				this.bodyLock()
+				BodyLock(this.unlock, this.timeout)
 			}
 
-			modal.classList.remove('modal__close')
-			modal.classList.add('modal__open')
-			modal.addEventListener('click', (e) => {
-				if (!e.target.closest('.modal__content')) {
-					this.modalClose(modal.closest('.modal'))
-				}
-			})
+			this.modal.classList.remove('close')
+			this.modal.classList.add('open')
+			this.backgroundClose(this.modal)
 		}
 	}
 
 	modalClose (modal, doUnlock = true) {
 		if (this.unlock) {
-			modal.classList.remove('modal__open')
-			modal.classList.add('modal__close')
-			if (doUnlock) this.bodyUnLock()
+			modal.classList.remove('open')
+			modal.classList.add('close')
+			if (doUnlock) BodyUnLock(this.unlock, this.timeout)
 		}
 	}
 
-	bodyLock () {
-		const lockPaddingValue = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px'
-
-		document.body.style.paddingRight = lockPaddingValue
-		document.body.style.overflow = 'hidden'
-
-		this.unlock = false
-		setTimeout(() => {
-			this.unlock = true
-		}, this.timeout)
+	backgroundClose (modal) {
+		modal.addEventListener('click', (e) => {
+			if (!e.target.closest('.modal__content')) {
+				this.modalClose(modal.closest('.modal'))
+			}
+		}, { once: true })
 	}
 
-	bodyUnLock () {
-		setTimeout(() => {
-			document.body.style.paddingRight = '0px'
-			document.body.style.overflow = 'visible'
-		}, this.timeout)
+	#clickOpen (btn) {
+		btn.addEventListener('click', (e) => {
+			e.preventDefault()
+			const modalName = btn.getAttribute('data-js-open')
+			if (this.modal.getAttribute('data-js-modal') === modalName) {
+				this.modalOpen(this.modal)
+			}
+		})
+	}
 
-		this.unlock = false
-		setTimeout(() => {
-			this.unlock = true
-		}, this.timeout)
+	#clickClose (btn) {
+		btn.addEventListener('click', (e) => {
+			e.preventDefault()
+			this.modalClose(btn.closest('.modal'))
+		})
 	}
 }
